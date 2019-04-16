@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import AvataeAndEdit from '../common/Avatar';
 import StarRatings from 'react-star-ratings';
 import axios from 'axios';
-const host = "https://gsm-node.herokuapp.com/";
+import host from '../Host';
 class HeaderHome extends React.Component {
     constructor() {
         super()

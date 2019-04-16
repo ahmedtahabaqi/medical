@@ -8,9 +8,10 @@ import Vimeo from '@u-wave/react-vimeo';
 import Context from '../Context';
 import axios from 'axios';
 import Cookies from "universal-cookie";
+import host from '../Host';
 const cookies = new Cookies();
 
-const host = "https://gsm-node.herokuapp.com/";
+
 class ContentCourses extends React.Component {
     constructor(props) {
         super(props);

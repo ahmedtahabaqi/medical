@@ -5,7 +5,7 @@ import Context from '../Context';
 import AvataeAndEdit from '../common/Avatar';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-const host = "https://gsm-node.herokuapp.com/";
+import host from '../Host';
 
 class HeaderAllCourses extends Component {
     constructor() {

@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 import Cookies from "universal-cookie";
 import Context from '../Context';
 import axios from 'axios';
-
+import host from '../Host';
 const cookies = new Cookies();
-var host = "https://gsm-node.herokuapp.com/";
+
 
 class AvataeAndEdit extends React.Component {
     constructor() {

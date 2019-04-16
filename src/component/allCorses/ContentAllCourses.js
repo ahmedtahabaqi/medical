@@ -5,7 +5,7 @@ import { Button } from 'evergreen-ui';
 import { Row, Col } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-var host = "https://gsm-node.herokuapp.com/";
+import host from '../Host';
 class ContentAllCourses extends Component {
   constructor() {
     super()

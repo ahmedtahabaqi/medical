@@ -16,13 +16,13 @@ import ContentCourses from './component/courses/contentCourses';
 import HeaderAllCourses from './component/allCorses/HeaderAllCourses';
 import ContentAllCourses from './component/allCorses/ContentAllCourses';
 import axios from 'axios';
-
+import host from './component/Host';
 import './App.css';
 import './assets/dashboard/Dashboard.css';
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
-const host = "https://gsm-node.herokuapp.com/";
+
 
 class App extends Component {
   constructor() {
@@ -37,7 +37,7 @@ class App extends Component {
   componentDidMount() {
     if (cookies.get("token")) {
       var headers = { "Content-Type": "application/json", token: cookies.get("token") };
-      axios.get(host + `api/user/checklogin`, 
+      axios.get(host+ `api/user/checklogin`, 
       { headers: headers })
           .then(response =>  { 
             console.log(response.data[1].sesson)

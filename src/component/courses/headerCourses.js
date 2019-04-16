@@ -6,9 +6,10 @@ import AvataeAndEdit from '../common/Avatar';
 import '../../assets/cssCourse/HeaderCourses.css';
 import axios from 'axios';
 import Cookies from "universal-cookie";
+import host from '../Host';
 const cookies = new Cookies();
 
-const host = "https://gsm-node.herokuapp.com/";
+
 
     
     

@@ -8,11 +8,11 @@ import '../../assets/dashboard/Dashboard.css';
 import axios from 'axios';
 import Cookies from "universal-cookie";
 import Home from '../Home/Home';
-
+import host from '../Host';
 
 const cookies = new Cookies();
 
-var host = "https://gsm-node.herokuapp.com/";
+
 
 class Dashboard2 extends React.Component {
     constructor() {

@@ -6,7 +6,7 @@ import AvatarAndEdit from '../common/Avatar';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../../assets/packages/packages.css'
-var host = "https://gsm-node.herokuapp.com/";
+import host from '../Host';
 
 
 

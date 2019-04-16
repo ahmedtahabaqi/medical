@@ -5,9 +5,9 @@ import React from "react";
 // import Cookies from "universal-cookie";
 import {Link} from 'react-router-dom';
 import '../../assets/loginTecherAndUser/loginTecher.css';
+import host from '../Host';
 // const cookies = new Cookies();
 
-// var host = "http://localhost:5000/"
 class RegisterUser extends React.Component {
     constructor() {
         super();

@@ -12,6 +12,7 @@ import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from "universal-cookie";
 import Home from '../Home/Home';
+import host from '../Host';
 import '../../assets/AddCourse/AddLecture.css';
 const cookies = new Cookies();
 const styles = {
@@ -43,7 +44,7 @@ const styles = {
         transition: "width .6s ease"
     }
 };
-const host = "https://gsm-node.herokuapp.com/";
+
 class AddLecture extends React.Component {
     constructor(props) {
         super(props);

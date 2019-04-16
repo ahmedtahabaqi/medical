@@ -5,9 +5,10 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 import {Link} from 'react-router-dom';
 import '../../assets/loginTecherAndUser/loginTecher.css';
+import host from '../Host';
 const cookies = new Cookies();
 
-var host = "https://gsm-node.herokuapp.com/";
+
 class RegisterTecher extends React.Component {
     constructor() {
         super();
