@@ -4,8 +4,7 @@ import React from "react";
 // import axios from "axios";
 // import Cookies from "universal-cookie";
 import {Link} from 'react-router-dom';
-import '../../assets/loginTecherAndUser/loginTecher.css';
-import host from '../Host';
+// import host from '../Host';
 // const cookies = new Cookies();
 
 class RegisterUser extends React.Component {

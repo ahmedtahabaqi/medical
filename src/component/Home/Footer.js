@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../../assets/cssHome/footer.css'
 import { Button } from 'evergreen-ui';
 import AliceCarousel from 'react-alice-carousel';
 import { Media, Image, Container, Col, Row } from 'react-bootstrap';
@@ -45,7 +44,7 @@ class FooterHome extends Component {
                 </Coverflow>,
                
                 <div id='continerCrosol'>
-                    <div id='studentCrosol' > <h2>instructor</h2></div>
+                    <div id='studentCrosol' > <h2>Trusted By</h2></div>
                     <div>
                         <AliceCarousel
                             duration={400}
@@ -147,9 +146,9 @@ class FooterHome extends Component {
                         <Container id='becomAndbusines'>
                             <Row className="justify-content-center">
                                 <Col id='becomeContiner'>
-                                    <h2>Become an instructor</h2>
-                                    <p>Teach what you love. Gsm gives you the tools to create an online course.</p>
-                                    <Button appearance="primary" intent="none">Start teaching</Button>
+                                    <h2>Become An Instructor</h2>
+                                    <p>Teach What You Love. G.S.M Gives You The Opportunity And The Tools To Create An Online Courses.</p>
+                                    <Button appearance="primary" intent="none">Start Teaching</Button>
                                 </Col>
                             </Row>
                         </Container>

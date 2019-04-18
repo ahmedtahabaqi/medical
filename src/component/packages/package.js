@@ -1,14 +1,14 @@
 import React from 'react';
-import { Row, Col, Navbar, Nav } from 'react-bootstrap';
+import { Row, Col} from 'react-bootstrap';
 import { Button } from 'evergreen-ui';
-import '../../assets/AddCourse/SlideBar.css';
 import Context from '../Context';
 import StarRatings from 'react-star-ratings';
-import AvatarAndEdit from '../common/Avatar';
+
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from "universal-cookie";
 import host from '../Host';
+import NavbarAllPage from '../common/navbarAllPage'
 const cookies = new Cookies();
 
 
@@ -54,18 +54,11 @@ class Package extends React.Component {
                     return (
                         <div >
 
-                            <Navbar id='collapsAddCourse' collapseOnSelect expand="md" variant="light" >
-                                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                                <Navbar.Brand href="/">
-                                    <img style={{ width: '70px', paddingLeft: 16 }} src={require('../../assets/logo.png')} alt="img" />
-                                </Navbar.Brand>
-                                <Nav className="mr-auto" />
-                                <AvatarAndEdit />
-                            </Navbar>
+                            <NavbarAllPage />
                             <div id='titleCourseContiner'>
                                 <div id='titleCourseContiner1'>
                                     <h2 id='titleCourse'>
-                                       {this.state.packageContent.Title}
+                                        {this.state.packageContent.Title}
                                     </h2>
                                     <p id='descripCourse'> {this.state.packageContent.body} </p>
 
@@ -76,7 +69,7 @@ class Package extends React.Component {
                                     </div>
 
                                 </div>
-                                <div id='imgCardCourseContiner' > <img id='imgCardCourse' src={host+this.state.packageContent.img } alt="img" /></div>
+                                <div id='imgCardCourseContiner' > <img id='imgCardCourse' src={host + this.state.packageContent.img} alt="img" /></div>
 
                             </div>
 

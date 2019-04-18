@@ -1,0 +1,12 @@
+#aboutusContiner{
+    text-align: center;
+    margin:  50px;
+}
+#aboutusContiner h2{
+    color: rgb(79, 71, 197);
+    font-weight: bold;
+}
+#aboutusContiner p{
+    
+    font-size: 1.1rem
+}

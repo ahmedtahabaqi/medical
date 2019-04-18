@@ -1,19 +1,15 @@
 import React from 'react';
-import { Button, Icon, Pane, Dialog, TextInput, toaster, Heading, FilePicker, Switch, IconButton } from 'evergreen-ui';
-import FileUploadProgress from 'react-fileupload-progress';
-import { Nav, Navbar, Collapse } from 'react-bootstrap';
-
+import { Button, Icon, Pane, Dialog, TextInput, toaster,Spinner, Heading, FilePicker, Switch, IconButton } from 'evergreen-ui';
+import { Collapse } from 'react-bootstrap';
 import Component from "@reactions/component";
-import AvatarAndEdit from '../common/Avatar';
 import StarRatings from 'react-star-ratings';
 import Vimeo from '@u-wave/react-vimeo';
 import Context from '../Context';
-import { NavLink } from 'react-router-dom';
+import { NavLink,Link } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from "universal-cookie";
-import Home from '../Home/Home';
+import NavbarAllPage from '../common/navbarAllPage'
 import host from '../Host';
-import '../../assets/AddCourse/AddLecture.css';
 const cookies = new Cookies();
 const styles = {
     progressWrapper: {
@@ -294,7 +290,7 @@ class AddLecture extends React.Component {
                                         <span >{this.state.lectures[index].title}</span>
                                     </div>
                                     <div id="uploadAnddeletContiner">
-                                        <Component initialState={{ isShown: false, checked: false }}>
+                                        {/* <Component initialState={{ isShown: false, checked: false }}>
                                             {({ state, setState }) => (
                                                 <Pane>
                                                     <Dialog
@@ -316,16 +312,19 @@ class AddLecture extends React.Component {
                                                             />
                                                         </div>
                                                     </Dialog>
+                                                   
+                                                </Pane>
+                                            )}
+                                        </Component> */}
+                                        <Link to={`/uploadvideo?chapter=${this.state.lectures[index]._id}&course=${this.props.match.params.id}`}>
                                                     <Icon icon="upload" onClick={() => {
                                                         this.setState({
                                                             chapterId: this.state.lectures[index]._id
                                                         })
-                                                        setState({ isShown: true })
+                                                       
                                                     }}
                                                         size={20} color="selected" marginRight={16} id='iconTrushAddlecture' />
-                                                </Pane>
-                                            )}
-                                        </Component>
+                                                        </Link>
                                         <Icon icon="trash" onClick={() => this.deleteLecture(this.state.lectures[index]._id)}
                                             size={20} color="danger" marginRight={16} id='iconTrushAddlecture' />
                                     </div>
@@ -461,14 +460,7 @@ class AddLecture extends React.Component {
                     if (ctx.value.auth === "login") {
                         return (
                             <React.Fragment>
-                                <Navbar id='collapsAddCourse' collapseOnSelect expand="lg" variant="light" >
-                                    <Navbar.Brand href="/">
-                                        <img style={{ width: '70px' }} src={require('../../assets/logo.png')} alt="img" />
-                                    </Navbar.Brand>
-                                    <Nav className="mr-auto">
-                                    </Nav>
-                                    <AvatarAndEdit />
-                                </Navbar>
+                                <NavbarAllPage/>
 
                                 <div id='titleCourseContiner'>
                                     <div id='titleCourseContiner1'>
@@ -533,7 +525,9 @@ class AddLecture extends React.Component {
                     }
                     else {
                         return (
-                            <Home />
+                            <Pane display="flex" alignItems="center" justifyContent="center" height={'100vh'}>
+                            <Spinner />
+                          </Pane>
                         )
                     }
                 }}

@@ -1,5 +1,4 @@
 import React,{Component} from 'react';
-import '../../assets/cssMycourse/ContentMyCourses.css';
 
 class ContentMyCourses extends Component{
     render() {

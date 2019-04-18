@@ -1,7 +1,6 @@
 import React from 'react';
 import { Pane, Dialog, Icon, Popover, Menu, Position, Avatar, Button, TextInput, FilePicker, Textarea, toaster } from 'evergreen-ui';
 import Component from "@reactions/component";
-import '../../assets/common/Avatar.css';
 import { Link } from 'react-router-dom';
 import Cookies from "universal-cookie";
 import Context from '../Context';

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Row, Col, Navbar, Nav, Form, Image, Media } from 'react-bootstrap';
-import { Button, Pane, Dialog, TextInput, FilePicker, toaster, Textarea, Icon, SideSheet, Paragraph, Table } from 'evergreen-ui';
-import '../../assets/AddCourse/SlideBar.css';
+import { Button, Pane, Dialog, TextInput, FilePicker,Spinner, toaster, Textarea, Icon, SideSheet, Paragraph, Table } from 'evergreen-ui';
 import Context from '../Context';
 import StarRatings from 'react-star-ratings';
 import AvatarAndEdit from '../common/Avatar';
@@ -9,8 +8,8 @@ import { NavLink, Link } from 'react-router-dom';
 import Component from "@reactions/component";
 import axios from 'axios';
 import Cookies from "universal-cookie";
-import Home from '../Home/Home';
 import host from '../Host';
+// import Home from '../Home/Home';
 const cookies = new Cookies();
 
 
@@ -111,7 +110,7 @@ class SlideBar extends React.Component {
         return (
             <Context.Consumer>
                 {ctx => {
-                    if (ctx.value.auth==="login") {
+                    if (ctx.value.auth==="login")  {
                         return (
                             <div >
                                 <NavLink exact to='/Addcourses' />
@@ -514,9 +513,27 @@ class SlideBar extends React.Component {
                             </div>
                        
                             )   
-                    } else {
+                    }
+                    // else if (  ctx.value.auth!=="login" && ctx.value.session.role === 0)
+                    // {
+                    //     return(
+                    //     <Home/>
+                    // )  
+                    // }
+                    // else if(ctx.value.auth==="loading" )
+                    // {
+                    //     return(
+                    //         <Home/>
+                    //     )
+                    // }
+                     else {
+                         
+                         
                         return(
-                            <Home/>
+                         
+                         <Pane display="flex" alignItems="center" justifyContent="center" height={'100vh'}>
+                         <Spinner />
+                       </Pane>
                         )
                     }
 

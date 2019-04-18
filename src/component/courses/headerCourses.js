@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
-import { Navbar, Nav } from 'react-bootstrap';
 import {  Button } from 'evergreen-ui';
 import StarRatings from 'react-star-ratings';
-import AvataeAndEdit from '../common/Avatar';
-import '../../assets/cssCourse/HeaderCourses.css';
 import axios from 'axios';
 import Cookies from "universal-cookie";
 import host from '../Host';
+import NavbarAllPage from '../common/navbarAllPage'
 const cookies = new Cookies();
 
 
@@ -39,14 +37,7 @@ class HeaderCourses extends Component {
     render() {
         return (
             <div>
-                <Navbar id='collapsAddCourse' collapseOnSelect expand="md" variant="light" >
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                    <Navbar.Brand href="/">
-                        <img style={{ width: '70px', paddingLeft: 16 }} src={require('../../assets/logo.png')} alt="img" />
-                    </Navbar.Brand>
-                    <Nav className="mr-auto" />
-                    <AvataeAndEdit />
-                </Navbar>
+                <NavbarAllPage/>
                 <div id='titleCourseContiner'>
                     <div id='titleCourseContiner1'>
                         <h2 id='titleCourse'>

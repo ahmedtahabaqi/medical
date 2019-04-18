@@ -1,8 +1,6 @@
 import React from 'react';
 import {Icon, Pane, Dialog} from 'evergreen-ui';
 import { Collapse } from 'react-bootstrap';
-import '../../assets/AddCourse/AddLecture.css';
-import '../../assets/cssCourse/ContentCourses.css';
 import Component from "@reactions/component";
 import Vimeo from '@u-wave/react-vimeo';
 import Context from '../Context';

@@ -1,15 +1,13 @@
 import React from 'react';
 import Component from "@reactions/component";
 import { Col, Row, Table, Button, Form } from 'react-bootstrap';
-import { Pane, Dialog, toaster } from 'evergreen-ui';
+import { Pane, Dialog, toaster ,Spinner} from 'evergreen-ui';
 import Context from '../Context';
 import { Link, NavLink } from 'react-router-dom';
-import '../../assets/dashboard/Dashboard.css';
 import axios from 'axios';
 import Cookies from "universal-cookie";
-import Home from '../Home/Home';
 import host from '../Host';
-
+import Home from '../Home/Home';
 const cookies = new Cookies();
 
 
@@ -185,9 +183,16 @@ class Dashboard2 extends React.Component {
                             </div>
                         )
                     }
-                    else {
+                    else if (ctx.value.auth !== "login") {
                         return (
                             <Home />
+                        )
+                    }
+                    else {
+                        return (
+                            <Pane display="flex" alignItems="center" justifyContent="center" height={'100vh'}>
+                            <Spinner />
+                          </Pane>
                         )
                     }
 

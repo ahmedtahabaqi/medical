@@ -1,12 +1,11 @@
 import React from 'react';
-import { Row, Col, Navbar, Nav} from 'react-bootstrap';
-import '../../assets/AddCourse/SlideBar.css';
+import { Row, Col} from 'react-bootstrap';
 import Context from '../Context';
-import AvatarAndEdit from '../common/Avatar';
+
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import '../../assets/packages/packages.css'
 import host from '../Host';
+import NavbarAllPage from '../common/navbarAllPage'
 
 
 
@@ -40,14 +39,7 @@ class ShowPackages extends React.Component {
                 {ctx => {
                     return (
                         <div >
-                            <Navbar id='collapsAddCourse' collapseOnSelect expand="md" variant="light" >
-                                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                                <Navbar.Brand href="/">
-                                    <img style={{ width: '70px', paddingLeft: 16 }} src={require('../../assets/logo.png')} alt="img" />
-                                </Navbar.Brand>
-                                <Nav className="mr-auto" />
-                                <AvatarAndEdit />
-                            </Navbar>
+                             <NavbarAllPage/>
 
 
                             <Row style={{ margin: 0, padding: 0 }}>

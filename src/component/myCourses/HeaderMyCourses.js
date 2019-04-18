@@ -1,10 +1,11 @@
 import React,{Component} from 'react';
-import '../../assets/cssMycourse/HeaderMyCourses.css';
+import NavbarAllPage from '../common/navbarAllPage'
 
 class HeaderMyCourses extends Component{
     render() {
       return (
         <div>
+           <NavbarAllPage/>
           header
         </div>
       )

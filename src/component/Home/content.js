@@ -3,7 +3,7 @@ import Context from '../Context';
 import Slider from 'react-slick';
 import StarRatings from 'react-star-ratings';
 import { Button } from 'evergreen-ui';
-import '../../assets/cssHome/contentHome.css';
+
 
 class ContentHome extends Component {
     constructor() {

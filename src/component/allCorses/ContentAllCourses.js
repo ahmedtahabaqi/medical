@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../../assets/allCourses/ContentAllCourses.css';
 import StarRatings from 'react-star-ratings';
 import { Button } from 'evergreen-ui';
 import { Row, Col } from 'react-bootstrap';

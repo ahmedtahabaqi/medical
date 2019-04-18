@@ -1,13 +1,12 @@
 import React from 'react';
 import Component from "@reactions/component";
 import { Col, Row, Table, Button, Form } from 'react-bootstrap';
-import { Pane, Dialog, TextInput, toaster, FilePicker, Textarea, Icon } from 'evergreen-ui';
+import { Pane, Dialog, TextInput, toaster, FilePicker, Textarea, Icon, Spinner } from 'evergreen-ui';
 import Context from '../Context';
 import { Link, NavLink } from 'react-router-dom';
-import '../../assets/dashboard/Dashboard.css';
 import axios from 'axios';
 import Cookies from "universal-cookie";
-import Home from '../Home/Home';
+import Home from '../Home/Home'
 import host from '../Host';
 const cookies = new Cookies();
 
@@ -101,7 +100,7 @@ class Dashboard extends React.Component {
         return (
             <Context.Consumer>
                 {ctx => {
-                    if (ctx.value.session.role === 1) {
+                    if (ctx.value.auth === "login"&&ctx.value.session.role === 1) {
                         return (
                             <div>
                                 <Row style={{ height: '100vh', margin: 0, padding: 0 }}>
@@ -476,9 +475,20 @@ class Dashboard extends React.Component {
 
                             </div>
                         )
-                    } else {
+                    } else if (ctx.value.auth !== "login") {
                         return (
                             <Home />
+                        )
+                    }
+                    else if (ctx.value.auth ==='logding') {
+                        
+                     
+                        return (
+
+                            <Pane display="flex" alignItems="center" justifyContent="center" height={'100vh'}>
+                                <Spinner />
+                            </Pane>
+
                         )
                     }
 
