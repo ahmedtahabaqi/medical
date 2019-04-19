@@ -47,7 +47,7 @@
     text-align: center;
     font-size: 1.3rem;
     font-weight: bold;
-    margin-top: 50px;
+    margin-top: -20px;
     margin-bottom: 30px;
   }
   #collaps{
@@ -79,7 +79,7 @@
       align-items: center;      
     }
     #pImg{
-      margin-top: -10px;
+      margin-top: -50px;
       margin-bottom: 20px;
     }
   }
@@ -99,7 +99,9 @@
          
     }
     #pImg{
-     color: #061725
+     color: #061725;
+     margin-top: 0px;
+         
     }
     #becomeInstructureButtom{
       margin-top: 10px;

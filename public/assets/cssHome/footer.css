@@ -1,5 +1,6 @@
 #footercontiner{
 background-color: #F7F8FA;
+position: relative;
 }
 #getFooter{
     align-items: center;
@@ -64,13 +65,8 @@ background-color: #F7F8FA;
 }
 #becomeContiner h2{
     font-size: 1.4rem;
-}
-#copyriteContiner{
-    display: flex;
-    justify-content: space-between;
-    padding:20px;
-    background-color: #fff;
 
 }
+
 
 

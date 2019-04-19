@@ -1,12 +1,13 @@
 #aboutusContiner{
     text-align: center;
-    margin:  50px;
+    margin:  120px;
 }
 #aboutusContiner h2{
-    color: rgb(79, 71, 197);
+    color: #025cab;
     font-weight: bold;
 }
 #aboutusContiner p{
     
-    font-size: 1.1rem
+    font-size: 1.3rem;
+    letter-spacing: normal;
 }
