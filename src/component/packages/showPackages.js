@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col} from 'react-bootstrap';
 import Context from '../Context';
-
+import FooterAllPage from '../common/footerAllPage';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import host from '../Host';
@@ -39,9 +39,8 @@ class ShowPackages extends React.Component {
                 {ctx => {
                     return (
                         <div >
+                             <div id='contentUpFooter'>
                              <NavbarAllPage/>
-
-
                             <Row style={{ margin: 0, padding: 0 }}>
                                 {this.state.packages.map(packages =>
                                     <Col key={packages._id} id="col1" style={{ margin: 0, marginTop: 50, padding: 0 }} xs={12} sm={6} md={4} lg={3} xl={3} >
@@ -64,7 +63,8 @@ class ShowPackages extends React.Component {
                                         </Link>
                                     </Col>)}
                             </Row>
-
+                            </div>
+                            <FooterAllPage/>
                         </div>
                     )
                 }}

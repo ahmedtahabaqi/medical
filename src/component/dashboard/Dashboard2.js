@@ -7,7 +7,7 @@ import { Link, NavLink } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from "universal-cookie";
 import host from '../Host';
-import Home from '../Home/Home';
+import HeaderHome from '../Home//Header';
 const cookies = new Cookies();
 
 
@@ -185,7 +185,7 @@ class Dashboard2 extends React.Component {
                     }
                     else if (ctx.value.auth !== "login") {
                         return (
-                            <Home />
+                            <HeaderHome />
                         )
                     }
                     else {

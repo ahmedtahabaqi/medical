@@ -6,7 +6,7 @@ import Context from '../Context';
 import { Link, NavLink } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from "universal-cookie";
-import Home from '../Home/Home'
+import HeaderHome from '../Home/Header';
 import host from '../Host';
 const cookies = new Cookies();
 
@@ -477,7 +477,7 @@ class Dashboard extends React.Component {
                         )
                     } else if (ctx.value.auth !== "login") {
                         return (
-                            <Home />
+                            <HeaderHome />
                         )
                     }
                     else if (ctx.value.auth ==='logding') {

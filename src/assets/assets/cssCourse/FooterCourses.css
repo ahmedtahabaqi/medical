@@ -1,0 +1,29 @@
+
+
+#trustedicon{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#imagecontiner{
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 50px;
+}
+#becomAndbusines{
+    padding-bottom:20px;
+}
+#becomeContiner{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-height: 300px;
+    padding-left:110px ;
+    padding-right: 110px;
+    text-align: center;
+    box-shadow: 0 1px 3px 0 rgba(20,23,28,0.15);
+     
+}
+#becomeContiner h2{
+    font-size: 1.4rem;
+}

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Button } from 'evergreen-ui';
+import { Button,Tab } from 'evergreen-ui';
 import AliceCarousel from 'react-alice-carousel';
 import { Media, Image, Container, Col, Row } from 'react-bootstrap';
-import "react-alice-carousel/lib/alice-carousel.css";
+import {Link} from 'react-router-dom';
 import "react-alice-carousel/lib/alice-carousel.css";
 var Coverflow = require('react-coverflow');
+
 
 class FooterHome extends Component {
 
@@ -42,7 +43,7 @@ class FooterHome extends Component {
 
 
                 </Coverflow>,
-               
+
                 <div id='continerCrosol'>
                     <div id='studentCrosol' > <h2>Trusted By</h2></div>
                     <div>
@@ -74,7 +75,7 @@ class FooterHome extends Component {
                                     <p>
                                         Vice President at Iraqi dental association
                                         Works at Baghdad smile Clinics
-    
+
                                      </p>
 
                                 </Media.Body>
@@ -153,12 +154,22 @@ class FooterHome extends Component {
                             </Row>
                         </Container>
                         <div id='copyriteContiner'>
-                            <img height="27" src={require('../../assets/logo.png')} alt="img" />
-                            <p> Copyright © 2019.</p>
+                            <div id='logoAndCopy'>
+                                <img height="27" src={require('../../assets/logo.png')} alt="img" />
+                                <p> Copyright © 2019.</p>
+                            </div>
+                            <div>
+                                <Link to='/aboutus'><Tab>About Us</Tab></Link>
+
+                                <Link to='/contactus'><Tab>Contact Us</Tab></Link>
+
+                                <Link to='/gsmteam'><Tab>G.S.M Team </Tab></Link>
+
+                                <Link to=''><Tab>Terms Of Service</Tab></Link>
+                            </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         )
     }

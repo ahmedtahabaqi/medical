@@ -3,6 +3,8 @@ import Context from '../Context';
 import axios from 'axios';
 import NavbarAllPage from '../common/navbarAllPage'
 import host from '../Host';
+import ContentAllCourses from './ContentAllCourses'
+import FooterAllPage from '../common/footerAllPage';
 
 class HeaderAllCourses extends Component {
     constructor() {
@@ -24,7 +26,11 @@ class HeaderAllCourses extends Component {
             {ctx => {
                 return (
                     <div>
-                         <NavbarAllPage/>
+                        <div id='contentUpFooter'>
+                            <NavbarAllPage />
+                            <ContentAllCourses />
+                        </div>
+                        <FooterAllPage />
                     </div>
                 )
             }}

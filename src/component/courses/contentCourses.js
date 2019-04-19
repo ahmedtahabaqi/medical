@@ -1,14 +1,16 @@
 import React from 'react';
-import {Icon, Pane, Dialog} from 'evergreen-ui';
+import { Icon, Pane, Dialog, Button } from 'evergreen-ui';
 import { Collapse } from 'react-bootstrap';
 import Component from "@reactions/component";
 import Vimeo from '@u-wave/react-vimeo';
+import StarRatings from 'react-star-ratings';
 import Context from '../Context';
+import NavbarAllPage from '../common/navbarAllPage';
+import FooterAllPage from '../common/footerAllPage';
 import axios from 'axios';
 import Cookies from "universal-cookie";
 import host from '../Host';
 const cookies = new Cookies();
-
 
 class ContentCourses extends React.Component {
     constructor(props) {
@@ -23,38 +25,45 @@ class ContentCourses extends React.Component {
             open: false,
             courseId: '',
             nameVideo: '',
-            chapter: '', 
+            chapter: '',
             video: [],
             chapterId: '',
             rating: 3.5,
-         
+            courseDetels: [],
 
         };
     }
-    changeRating(newRating, name) { this.setState({rating: newRating}); }
+    changeRating(newRating, name) { this.setState({ rating: newRating }); }
 
     componentDidMount() {
         axios.get(host + `api/course/Course/` + this.props.match.params.id, { headers: {} })
             .then(response => {
                 this.setState({ lectures: response.data })
-                this.Html(response.data.length) })
+                this.Html(response.data.length)
+            })
+            .catch((error) => { console.log('error ' + error); })
+
+        axios.get(host + `api/course/CourseDetails/` + this.props.match.params.id, { headers: { token: cookies.get('token') } })
+            .then(response => {
+                this.setState({ courseDetels: response.data[0] })
+                console.log(response.data[0]);
+
+
+            })
             .catch((error) => { console.log('error ' + error); })
     }
-
-   
 
     network(id) {
         axios.get(host + `api/course/Chapters/` + id,
             { headers: { token: cookies.get('token') } })
             .then(response => {
-            let data = { [id]: response.data }
-            let videos = [...this.state.videos2, data]
-            this.setState({ videos: response.data, videos2: videos })})
+                let data = { [id]: response.data }
+                let videos = [...this.state.videos2, data]
+                this.setState({ videos: response.data, videos2: videos })
+            })
             .catch((error) => { console.log('error ' + error); })
     }
 
-
-   
     renderIcon = (_id, stat) => {
         if (stat) { return <Icon id='menuiconCourse' icon="minus" color="danger" size={30} /> }
         else { return <Icon id='menuiconCourse' icon="menu" color="info" size={30} /> }
@@ -143,7 +152,7 @@ class ContentCourses extends React.Component {
         }
 
         this.displayDataAdt = html;
-        this.setState({ Adtdata: this.displayDataAdt});
+        this.setState({ Adtdata: this.displayDataAdt });
 
 
     }
@@ -154,7 +163,35 @@ class ContentCourses extends React.Component {
                 {ctx => {
                     return (
                         <React.Fragment>
-                            {this.displayDataAdt}
+                            <div id='contentUpFooter'>
+                                <NavbarAllPage />
+                                <div id='titleCourseContiner'>
+                                    <div id='titleCourseContiner1'>
+                                        <h2 id='titleCourse'>
+                                            {this.state.courseDetels.title}
+                                        </h2>
+                                        <p id='descripCourse'>{this.state.courseDetels.body} </p>
+                                        <div className='rating'>
+                                            <StarRatings rating={this.state.courseDetels.ratting} starRatedColor="gold"
+                                                // changeRating={this.changeRating} 
+                                                starDimension='20px'
+                                                starSpacing='4px'
+                                            />
+                                            <span style={{ marginLeft: 30 }}>{'Auther: ' + this.state.courseDetels.userName}</span>
+                                        </div>
+                                        <div id='byNowContiner'>
+                                            <Button size={400} appearance="primary" intent="danger" > By Now</Button>
+                                            {/* <div id='orginalPrice'>{this.state.courseDetels.__v + ' $'}</div> */}
+                                            <div id='priceNow'>{this.state.courseDetels.price + ' $'}</div>
+                                        </div>
+
+                                    </div>
+                                    <div id='imgCardCourseContiner' > <img id='imgCardCourse' src={host + this.state.courseDetels.img} alt="img" /></div>
+
+                                </div>
+                                {this.displayDataAdt}
+                            </div>
+                            <FooterAllPage />
                         </React.Fragment>
                     )
                 }}

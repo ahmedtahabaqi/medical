@@ -3,6 +3,7 @@ import { Button, Icon, Pane, Dialog, TextInput, toaster,Spinner, Heading, FilePi
 import { Collapse } from 'react-bootstrap';
 import Component from "@reactions/component";
 import StarRatings from 'react-star-ratings';
+import FooterAllPage from '../common/footerAllPage';
 import Vimeo from '@u-wave/react-vimeo';
 import Context from '../Context';
 import { NavLink,Link } from 'react-router-dom';
@@ -460,6 +461,7 @@ class AddLecture extends React.Component {
                     if (ctx.value.auth === "login") {
                         return (
                             <React.Fragment>
+                                <div id='contentUpFooter'>
                                 <NavbarAllPage/>
 
                                 <div id='titleCourseContiner'>
@@ -520,6 +522,8 @@ class AddLecture extends React.Component {
                                     )}
                                 </Component>
                                 {this.displayDataAdt}
+                                </div>
+                                <FooterAllPage />
                             </React.Fragment>
                         )
                     }
