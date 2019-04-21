@@ -75,7 +75,7 @@ class ContentCourses extends React.Component {
             html.push(
                 <div key={this.state.lectures[index]._id} id='AddLectureContinerCourse'>
                     <Component initialState={{
-                        ['open' + index]: false, videos: [],
+                        ['open' + index]: false, videos: [],getFile:[]
                     }}>
                         {({ state, setState }) => (
                             <div id='plusContinerAddCourse'>
@@ -83,6 +83,20 @@ class ContentCourses extends React.Component {
 
                                     <div id='menuAndTitleCourse'>
                                         <div onClick={() => {
+                                                      axios.get(host + `api/course/ChaptersFiles/` + this.state.lectures[index]._id,
+                                                      { headers: { token: cookies.get('token') } })
+                                                      .then(response => {    
+                                                          console.log(response.data);
+                                                                                                        
+                                                          setState({
+                                                              getFile: response.data,
+                                                              ['open' + index]: !state['open' + index]
+      
+                                                          })
+                                                      })
+                                                      .catch((error) => {
+                                                          console.log('error ' + error);
+                                                      })
 
                                             axios.get(host + `api/course/Chapters/` + this.state.lectures[index]._id,
                                                 { headers: { token: cookies.get('token') } })
@@ -138,6 +152,22 @@ class ContentCourses extends React.Component {
                                                 </div>
 
                                             </div>
+                                        )}
+                                                      {state.getFile.map(filess=>
+                                        <div key={filess._id} id='showVideoContiner'>
+                                            <div id='iconVideoAndName' style={{ cursor: 'pointer' }}
+                                            onClick={()=>{
+                                                window.open(host+filess.url, '_blank');
+                                            }}>
+                                                <Icon icon="document"  size={20} color="info" marginRight={16} marginLeft={16}
+                                                    style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} />
+                                                <p id='NameofVideoInLecture'>{filess.name}</p>
+                                            </div>
+                                            <div>
+                                        
+                                               
+                                            </div>
+                                        </div>
                                         )}
                                     </div>
                                 </Collapse>

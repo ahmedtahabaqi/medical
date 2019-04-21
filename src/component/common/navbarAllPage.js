@@ -30,9 +30,9 @@ class NavbarAllPage extends Component {
                     <div>
                         <Navbar id='collaps' collapseOnSelect expand="lg" bg="light" variant="light" >
                             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                            <Navbar.Brand href="/">
+                            <Link to='/'>
                                 <img height="27" src={require('../../assets/logo.png')} alt="img" />
-                            </Navbar.Brand>
+                                </Link>
                             <Navbar.Collapse id="responsive-navbar-nav">
                                 <Nav className="mr-auto">
                                     <Popover
@@ -51,17 +51,17 @@ class NavbarAllPage extends Component {
                                             </Menu>
                                         }
                                     >
-                                        <Button marginRight={10} iconAfter="caret-down">Category</Button>
+                                        <Button marginRight={10} marginLeft={10} iconAfter="caret-down">Category</Button>
                                     </Popover>
                                     <Link to="/ShowPackages">
                                         < Button appearance="primary" intent="none">Packages</Button>
                                     </Link>
                                 </Nav>
                                 <Nav>
-                                    <div style={ctx.value.auth !== "login" ? { display: "none" } : {}}>
+                                    <div style={ctx.value.auth === "login" ? { } : {display: "none" }}>
                                         <AvataeAndEdit />
                                     </div>
-                                    <div style={ctx.value.auth !== "login" ? {} : { display: "none" }}>
+                                    <div style={ctx.value.auth === "login" ? {display: "none" } : { }}>
                                         <Popover
                                             position={Position.BOTTOM_LEFT}
                                             content={

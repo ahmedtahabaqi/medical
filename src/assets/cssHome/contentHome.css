@@ -44,6 +44,9 @@
 }
 
 #cardcontent{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   height: 165px;
     box-shadow: 0 0 1px 1px rgba(20,23,28,0.1), 0 3px 1px 0 rgba(20,23,28,0.1);
     cursor: pointer;
@@ -52,9 +55,24 @@
 #cardcontent h2{
     font-size: 1.1rem;
     padding: 10px 10px 0px 10px;
+
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+  text-overflow: ellipsis;
+
+  line-height: 21px;
+  max-height: 48px;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 #cardcontent p{
     padding: 10px;
+    text-align: center;
+}
+#cardcontentBtn{
+    margin-bottom: 10px;
 }
 
 #imgCard{

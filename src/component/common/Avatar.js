@@ -15,6 +15,7 @@ class AvataeAndEdit extends React.Component {
         this.state = {
             name: '',
             description: '',
+            Country:'',
             file: [],
         }
     }
@@ -22,11 +23,12 @@ class AvataeAndEdit extends React.Component {
         let formData = new FormData();
         var headers = { "Content-Type": "application/json", token: cookies.get("token") };
         formData.append("name", this.state.name);
-        formData.append("description", this.state.description);
+        formData.append("body", this.state.description);
+        formData.append("Country", this.state.Country);
         formData.append("file", this.state.file[0]);
 
 
-        axios({ url: host + "api/course/editcourse/", method: "POST", data: formData, headers: headers })
+        axios({ url: host + "api/user/update", method: "POST", data: formData, headers: headers })
             .then(response => { if (response.status === 200) { window.location.reload(); } })
             .catch(function (error) { if (error.request.response) { toaster.danger(error.request.response); } });
     }
@@ -43,7 +45,7 @@ class AvataeAndEdit extends React.Component {
                                     <Menu>
                                         <Menu.Group>
                                             <Menu.Item>
-                                                ahmedtaha@gmail.com
+                                                {ctx.value.session.email}
                                              </Menu.Item>
                                         </Menu.Group>
                                         <Menu.Divider />
@@ -75,7 +77,7 @@ class AvataeAndEdit extends React.Component {
                                     </Menu>
                                 } >
                                 <Avatar id='editAvatar'
-                                    src={require("../../assets/Dr Karrar mahdi.jpg")}
+                                    src={host+ctx.value.session.img}
                                     name="Jeroen Ransijn"
                                     size={40}
                                 />
@@ -99,6 +101,12 @@ class AvataeAndEdit extends React.Component {
                                                 name="text-input-name"
                                                 placeholder="input full name..."
                                                 onChange={(event) => this.setState({ name: event.target.value })}
+                                            />
+                                             <p style={{ marginTop: 20 }}>Country</p>
+                                            <TextInput id='inputnamecourse'
+                                                name="text-input-name"
+                                                placeholder="input your Country ..."
+                                                onChange={(event) => this.setState({ Country: event.target.value })}
                                             />
                                             <p style={{ marginTop: 20 }}>Upload Image</p>
                                             <FilePicker

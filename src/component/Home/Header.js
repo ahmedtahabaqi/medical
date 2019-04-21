@@ -31,7 +31,7 @@ class HeaderHome extends React.Component {
                 {ctx => {
                     return (
                         <div >
-                            <NavbarAllPage />
+                             <NavbarAllPage />
                             <div>
 
                                 <div id='searchHome'>
@@ -46,7 +46,7 @@ class HeaderHome extends React.Component {
                             </div>
                             <div id='redbar'>
                                 <div id='contentRedbar'>
-                                    <Image roundedCircle width='50px' height='50px' src={require('../../assets/Dr.Harith Alawadi.jpeg')} alt="Image" />
+                                    <Image roundedCircle width='50px' height='50px' src={require('../../assets/Dr.Harith Alawadi.png')} alt="Image" />
                                     <div >
                                         <h3>Dr.Harith Alawadi</h3>
                                         <StarRatings rating={this.state.rating} starRatedColor="gold"

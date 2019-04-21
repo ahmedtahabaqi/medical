@@ -45,6 +45,7 @@ class GsmTeme extends Component {
                                     <li>HUMAM ADNAN AL-OBAIDI, MD STUDENT</li>
                                     <li>OMAR ALFAROOQ AL-OBAIDI, MD STUDENT</li>
                                     <li>RUQAYA SAMEER, MD STUDENT</li>
+                                    <li>Dr.Mohammed Elward Emergency Hospital Of Bucharest Orthopedics and Traumatology</li>
                                 </ul>
                                 <br />
                                 <h2>DENTAL TEAM</h2>
@@ -70,9 +71,9 @@ class GsmTeme extends Component {
                                     <li>AHMED ALZAEDY </li>
                                 </ul>
                                 <br />
-                                <h2>IT TEAM</h2>
+                                {/* <h2>IT TEAM</h2>
                                 <br />
-                                <h4>U ADD THE MEMBERS THAT YOU WISH TO, BUT I PREFER ADDING THE WHulE TEAM MEMBERS.</h4>
+                                <h4>U ADD THE MEMBERS THAT YOU WISH TO, BUT I PREFER ADDING THE WHulE TEAM MEMBERS.</h4> */}
 
                             </div>
                         </div>

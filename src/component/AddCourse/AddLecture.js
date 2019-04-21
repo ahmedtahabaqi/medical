@@ -1,46 +1,19 @@
 import React from 'react';
-import { Button, Icon, Pane, Dialog, TextInput, toaster,Spinner, Heading, FilePicker, Switch, IconButton } from 'evergreen-ui';
+import { Button, Icon, Pane, Dialog, TextInput, toaster, Spinner, Heading, FilePicker, Switch, IconButton } from 'evergreen-ui';
 import { Collapse } from 'react-bootstrap';
 import Component from "@reactions/component";
 import StarRatings from 'react-star-ratings';
 import FooterAllPage from '../common/footerAllPage';
-import Vimeo from '@u-wave/react-vimeo';
+// import Vimeo from '@u-wave/react-vimeo';
 import Context from '../Context';
-import { NavLink,Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from "universal-cookie";
 import NavbarAllPage from '../common/navbarAllPage'
 import host from '../Host';
+import Iframe from 'react-iframe'
+
 const cookies = new Cookies();
-const styles = {
-    progressWrapper: {
-        height: "27px",
-        width: "475px",
-        marginTop: "4px",
-        marginLeft: "20px",
-        float: "left",
-        overflow: "hidden",
-        backgroundColor: "#f5f5f5",
-        borderRadius: "4px",
-        WebkitBoxShadow: "inset 0 1px 2px rgba(0,0,0,.1)",
-        boxShadow: "inset 0 1px 2px rgba(0,0,0,.1)"
-    },
-    progressBar: {
-        float: "left",
-        width: "0",
-        height: "100%",
-        fontSize: "12px",
-        lineHeight: "20px",
-        color: "#fff",
-        textAlign: "center",
-        backgroundColor: "#5cb85c",
-        WebkitBoxShadow: "inset 0 -1px 0 rgba(0,0,0,.15)",
-        boxShadow: "inset 0 -1px 0 rgba(0,0,0,.15)",
-        WebkitTransition: "width .6s ease",
-        Otransition: "width .6s ease",
-        transition: "width .6s ease"
-    }
-};
 
 class AddLecture extends React.Component {
     constructor(props) {
@@ -62,7 +35,10 @@ class AddLecture extends React.Component {
             chapterId: '',
             editVideo: '',
             rating: 3.5,
-            courseDetels: []
+            courseDetels: [],
+            nameFile: '',
+            Uploadfile: [],
+            getFile:[]
 
         };
     }
@@ -154,6 +130,20 @@ class AddLecture extends React.Component {
             .catch(function (error) { if (error.request.response) { toaster.danger(error.request.response); } });
 
     }
+    DeleteFile(id) {
+        var headers = { "Content-Type": "application/json", token: cookies.get("token") };
+
+        axios({ url: host + "api/course/deleteFile/" + id, method: "POST", headers: headers })
+            .then(response => {
+                if (response.status === 200) {
+                    toaster.success("Successful");
+                    // this.componentDidMount();
+
+                }
+            })
+            .catch(function (error) { if (error.request.response) { toaster.danger(error.request.response); } });
+
+    }
     chengeCheked = () => {
         if (this.state.free === "false") {
             this.setState({ free: 'true' })
@@ -166,7 +156,27 @@ class AddLecture extends React.Component {
         if (stat) { return <Icon id='menuicon' icon="minus" color="danger" size={30} /> }
         else { return <Icon id='menuicon' icon="menu" color="info" size={30} /> }
     }
+    uploadFile() {
+        let formData = new FormData();
+        var headers = { "Content-Type": "application/json", token: cookies.get("token") };
 
+        formData.append("name", this.state.nameFile);
+        formData.append("chapter", this.state.chapterId);
+        formData.append("file", this.state.Uploadfile[0]);
+
+        axios({ url: host + "api/course/addFile", method: "POST", data: formData, headers: headers })
+            .then(response => {
+                if (response.status === 200) {
+                    toaster.success("Successful");
+                    this.componentDidMount();
+                }
+            })
+            .catch(function (error) {
+                if (error.request.response) {
+                    toaster.danger(error.request.response);
+                }
+            });
+    }
     customFormRenderer(onSubmit) {
         return (
             <form id="customForm" method="post" action={host + `api/course/Videoadd`}>
@@ -210,52 +220,7 @@ class AddLecture extends React.Component {
         return new FormData(document.getElementById("customForm"));
     }
 
-    customProgressRenderer(progress, hasError, cancelHandler) {
-        if (hasError || progress > -1) {
-            let barStyle = Object.assign({}, styles.progressBar);
 
-            barStyle.width = progress + "%";
-
-            let message = (
-                <div style={{ "margin-left": "19px" }}>
-
-                    <div>
-                        Uploading {barStyle.width}
-                    </div>
-
-                    <div>
-
-                    </div>
-                </div>
-            );
-
-            if (hasError) {
-                barStyle.backgroundColor = "#d9534f";
-                message = (
-                    <span style={{ color: "#a94442", "margin-left": "19px" }}>
-                        Failed to upload ...
-              </span>
-                );
-            }
-
-            if (progress === 100) {
-
-                toaster.success("Successful");
-            }
-
-            return (
-                <div>
-                    <div style={styles.progressWrapper}>
-                        <div style={barStyle} />
-                    </div>
-                    <IconButton onClick={cancelHandler} icon="cross" intent="danger" />
-                    <div style={{ clear: "left" }}>{message}</div>
-                </div>
-            );
-        } else {
-            return;
-        }
-    }
 
     Html(value) {
         let html = []
@@ -263,7 +228,7 @@ class AddLecture extends React.Component {
             html.push(
                 <div key={this.state.lectures[index]._id} id='AddLectureContiner'>
                     <Component initialState={{
-                        ['open' + index]: false, videos: [],
+                        ['open' + index]: false, videos: [],getFile:[]
                     }}>
                         {({ state, setState }) => (
                             <div id='plusContinerAdd'>
@@ -271,6 +236,20 @@ class AddLecture extends React.Component {
 
                                     <div id='menuAndTitle'>
                                         <div onClick={() => {
+                                                axios.get(host + `api/course/ChaptersFiles/` + this.state.lectures[index]._id,
+                                                { headers: { token: cookies.get('token') } })
+                                                .then(response => {    
+                                                    console.log(response.data);
+                                                                                                  
+                                                    setState({
+                                                        getFile: response.data,
+                                                        ['open' + index]: !state['open' + index]
+
+                                                    })
+                                                })
+                                                .catch((error) => {
+                                                    console.log('error ' + error);
+                                                })
 
                                             axios.get(host + `api/course/Chapters/` + this.state.lectures[index]._id,
                                                 { headers: { token: cookies.get('token') } })
@@ -283,6 +262,8 @@ class AddLecture extends React.Component {
                                                 .catch((error) => {
                                                     console.log('error ' + error);
                                                 })
+
+                                        
                                         }
 
                                         } aria-controls="example-collapse-text" >
@@ -291,50 +272,62 @@ class AddLecture extends React.Component {
                                         <span >{this.state.lectures[index].title}</span>
                                     </div>
                                     <div id="uploadAnddeletContiner">
-                                        {/* <Component initialState={{ isShown: false, checked: false }}>
+                                        <Component initialState={{ isShown: false }}>
                                             {({ state, setState }) => (
                                                 <Pane>
                                                     <Dialog
                                                         isShown={state.isShown}
-                                                        title={'Uplod Video to ' + this.state.lectures[index].title}
+                                                        title={'Upload File to ' + this.state.lectures[index].title}
                                                         onCloseComplete={() => setState({ isShown: false })}
-                                                        hasFooter={false}
+                                                        confirmLabel="Upload"
+                                                        onConfirm={() => {
+                                                            this.uploadFile()
+                                                            setState({ isShown: false })
+                                                        }}
                                                     >
+                                                        <p>File Name</p>
+                                                        <TextInput width='100%' name="text-input-name"
+                                                            placeholder="input name of file..."
+                                                            onChange={(event) => this.setState({ nameFile: event.target.value })}
+                                                        />
+                                                        <p style={{ marginTop: 30 }}>Upload File</p>
+                                                        <FilePicker
+                                                            width='100%'
+                                                            marginBottom={32}
+                                                            onChange={files => { this.setState({ Uploadfile: files }) }}
 
-                                                        <div>
-                                                            <FileUploadProgress key='ex1' url={host + `api/course/Videoadd`}
-                                                                onProgress={(e, request, progress) => { console.log('progress', e, request, progress); }}
-                                                                onLoad={(e, request) => { console.log('load', e, request); }}
-                                                                onError={(e, request) => { console.log('error', e, request); }}
-                                                                onAbort={(e, request) => { console.log('abort', e, request); }}
-                                                                formGetter={this.formGetter.bind(this)}
-                                                                formRenderer={this.customFormRenderer.bind(this)}
-                                                                progressRenderer={this.customProgressRenderer.bind(this)}
-                                                            />
-                                                        </div>
+                                                        />
                                                     </Dialog>
-                                                   
-                                                </Pane>
-                                            )}
-                                        </Component> */}
-                                        <Link to={`/uploadvideo?chapter=${this.state.lectures[index]._id}&course=${this.props.match.params.id}`}>
-                                                    <Icon icon="upload" onClick={() => {
-                                                        this.setState({
-                                                            chapterId: this.state.lectures[index]._id
-                                                        })
-                                                       
+
+                                                    <Icon icon="folder-new" onClick={() => {
+                                                        setState({ isShown: true })
+                                                        this.setState({ chapterId: this.state.lectures[index]._id })
                                                     }}
                                                         size={20} color="selected" marginRight={16} id='iconTrushAddlecture' />
-                                                        </Link>
+                                                </Pane>
+                                            )}
+                                        </Component>
+
+                                        <Link to={`/uploadvideo?chapter=${this.state.lectures[index]._id}&course=${this.props.match.params.id}`}>
+                                            <Icon icon="upload" onClick={() => {
+                                                this.setState({
+                                                    chapterId: this.state.lectures[index]._id
+                                                })
+
+                                            }}
+                                                size={20} color="selected" marginRight={16} id='iconTrushAddlecture' />
+                                        </Link>
                                         <Icon icon="trash" onClick={() => this.deleteLecture(this.state.lectures[index]._id)}
                                             size={20} color="danger" marginRight={16} id='iconTrushAddlecture' />
                                     </div>
                                 </div>
                                 <Collapse in={state['open' + index]}>
                                     <div id="example-collapse-text">
+                      
                                         {state.videos.map((video) =>
                                             <div key={video._id} id='showVideoContiner'>
                                                 <div id='iconVideoAndName'>
+
                                                     <Component initialState={{ isShown: false }}>
                                                         {({ state, setState }) => (
                                                             <Pane>
@@ -345,13 +338,25 @@ class AddLecture extends React.Component {
                                                                     hasFooter={false}
                                                                     hasHeader={false}
                                                                 >
-                                                                    <Vimeo
+                                                                    <Iframe url={`https://player.vimeo.com/video/${video.VideoId}?loop=1`}
+                                                                        width="525px"
+                                                                        height="293px"
+                                                                        id="myId"
+                                                                        allowFullScreen
+                                                                        className="myClassname"
+                                                                        display="initial"
+                                                                        position="relative" />
+                                                                    {/* <iframe src={`https://player.vimeo.com/video/${video.VideoId}?loop=1`} width={525}  frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen loop></iframe> */}
+
+                                                                    {/* <Vimeo
                                                                         video={video.VideoId}
                                                                         frameborder="0"
                                                                         width={525}
+                                                                        loop
                                                                         webkitallowfullscreen mozallowfullscreen allowfullscreen
                                                                         autoplay
-                                                                    />
+                                                                    /> */}
+
 
                                                                 </Dialog>
                                                                 <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={() => { setState({ isShown: true }) }}>
@@ -394,10 +399,10 @@ class AddLecture extends React.Component {
                                                                 >
                                                                     <div id='inputofAddlecture'>
                                                                         <div id='labelOfInputAddLecture'>
-                                                                            <p>Name of Video</p>
+                                                                            <p>Video Name</p>
                                                                         </div >
                                                                         <TextInput width='75%' name="text-input-name"
-                                                                            placeholder="input name of Video..."
+                                                                            placeholder="input Video name..."
                                                                             onChange={(event) => this.setState({ editVideo: event.target.value })}
                                                                         />
                                                                     </div>
@@ -420,7 +425,7 @@ class AddLecture extends React.Component {
                                                                     if (response.status === 200) {
                                                                         toaster.success("Successful");
                                                                         const lecture = state.videos.filter(sort => sort._id !== video._id);
-                                                                
+
                                                                         setState({
                                                                             videos: lecture
                                                                         })
@@ -432,12 +437,34 @@ class AddLecture extends React.Component {
                                                 </div>
                                             </div>
                                         )}
+                                        {state.getFile.map(filess=>
+                                            <div key={filess._id} id='showVideoContiner'>
+                                                <div id='iconVideoAndName' style={{ cursor: 'pointer' }}
+                                                onClick={()=>{
+                                                    window.open(host+filess.url, '_blank');
+                                                }}>
+                                                    <Icon icon="document"  size={20} color="info" marginRight={16} marginLeft={16}
+                                                        style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} />
+                                                    <p id='NameofVideoInLecture'>{filess.name}</p>
+                                                </div>
+                                                <div>
+                                                    <Icon icon="trash" size={20} color="muted" marginRight={16}
+                                                    style={{ cursor: 'pointer' }} 
+                                                    onClick={()=>{this.DeleteFile(filess._id)
+                                                        const lecture = state.getFile.filter(sort => sort._id !== filess._id);
+                                                        setState({
+                                                            getFile: lecture
+                                                        })
+                                                    }}/>
+                                                </div>
+                                            </div>
+                                            )}
                                     </div>
                                 </Collapse>
                             </div>
-                            
+
                         )}
-               </Component>
+                    </Component>
 
                 </div>
 
@@ -462,66 +489,66 @@ class AddLecture extends React.Component {
                         return (
                             <React.Fragment>
                                 <div id='contentUpFooter'>
-                                <NavbarAllPage/>
+                                    <NavbarAllPage />
 
-                                <div id='titleCourseContiner'>
-                                    <div id='titleCourseContiner1'>
-                                        <h2 id='titleCourse'>
-                                            {this.state.courseDetels.title}
-                                        </h2>
-                                        <p id='descripCourse'> {this.state.courseDetels.body} </p>
-                                        <div className='rating'>
-                                            <StarRatings rating={this.state.courseDetels.ratting} starRatedColor="gold"
-                                                starDimension='20px'
-                                                starSpacing='4px'
-                                            />
+                                    <div id='titleCourseContiner'>
+                                        <div id='titleCourseContiner1'>
+                                            <h2 id='titleCourse'>
+                                                {this.state.courseDetels.title}
+                                            </h2>
+                                            <p id='descripCourse'> {this.state.courseDetels.body} </p>
+                                            <div className='rating'>
+                                                <StarRatings rating={this.state.courseDetels.ratting} starRatedColor="gold"
+                                                    starDimension='20px'
+                                                    starSpacing='4px'
+                                                />
+
+                                            </div>
+
 
                                         </div>
-
+                                        <div id='imgCardCourseContiner' > <img id='imgCardCourse' src={host + this.state.courseDetels.img} alt="img" /></div>
 
                                     </div>
-                                    <div id='imgCardCourseContiner' > <img id='imgCardCourse' src={host + this.state.courseDetels.img} alt="img" /></div>
+                                    {/* )} */}
+                                    <NavLink exact to='/Addcourses'>
+                                        <div id='iconBack'>
+                                            <Icon icon='arrow-left' size={30} color="white" />
+                                        </div>
+                                    </NavLink>
+                                    <Component initialState={{ isShown: false }}>
+                                        {({ state, setState }) => (
+                                            <Pane>
+                                                <Dialog onConfirm={() => {
+                                                    this.addLecture()
+                                                    setState({ isShown: false })
+                                                }}
+                                                    isShown={state.isShown}
+                                                    title="Create Lecture"
+                                                    onCloseComplete={() => setState({ isShown: false })}
+                                                    confirmLabel="Add"
 
-                                </div>
-                                {/* )} */}
-                                <NavLink exact to='/Addcourses'>
-                                    <div id='iconBack'>
-                                        <Icon icon='arrow-left' size={30} color="white" />
-                                    </div>
-                                </NavLink>
-                                <Component initialState={{ isShown: false }}>
-                                    {({ state, setState }) => (
-                                        <Pane>
-                                            <Dialog onConfirm={() => {
-                                                this.addLecture()
-                                                setState({ isShown: false })
-                                            }}
-                                                isShown={state.isShown}
-                                                title="Create Lecture"
-                                                onCloseComplete={() => setState({ isShown: false })}
-                                                confirmLabel="Add"
+                                                >
+                                                    <div id='inputofAddlecture'>
+                                                        <div id='labelOfInputAddLecture'>
+                                                            <p>Name of Lecture</p>
+                                                        </div >
+                                                        <TextInput width='75%' name="text-input-name"
+                                                            placeholder="input name of leacture..."
+                                                            onChange={(event) =>
+                                                                this.setState({ addLecture: event.target.value, courseId: this.props.match.params.id })}
+                                                        />
+                                                    </div>
+                                                </Dialog>
 
-                                            >
-                                                <div id='inputofAddlecture'>
-                                                    <div id='labelOfInputAddLecture'>
-                                                        <p>Name of Lecture</p>
-                                                    </div >
-                                                    <TextInput width='75%' name="text-input-name"
-                                                        placeholder="input name of leacture..."
-                                                        onChange={(event) =>
-                                                            this.setState({ addLecture: event.target.value, courseId: this.props.match.params.id })}
-                                                    />
+                                                <div id='AddLectureButtom'>
+                                                    <Button onClick={() => setState({ isShown: true })}
+                                                        appearance="primary" marginLeft={20} intent="danger">Add Lecture</Button>
                                                 </div>
-                                            </Dialog>
-
-                                            <div id='AddLectureButtom'>
-                                                <Button onClick={() => setState({ isShown: true })}
-                                                    appearance="primary" marginLeft={20} intent="danger">Add Lecture</Button>
-                                            </div>
-                                        </Pane>
-                                    )}
-                                </Component>
-                                {this.displayDataAdt}
+                                            </Pane>
+                                        )}
+                                    </Component>
+                                    {this.displayDataAdt}
                                 </div>
                                 <FooterAllPage />
                             </React.Fragment>
@@ -530,8 +557,8 @@ class AddLecture extends React.Component {
                     else {
                         return (
                             <Pane display="flex" alignItems="center" justifyContent="center" height={'100vh'}>
-                            <Spinner />
-                          </Pane>
+                                <Spinner />
+                            </Pane>
                         )
                     }
                 }}

@@ -11,9 +11,7 @@ import host from '../Host';
 const cookies = new Cookies();
 
 
-const urlParams = new URLSearchParams(window.location.search);
-const course = urlParams.get('course');
-const chapter = urlParams.get('chapter');
+
 
 class Upload extends Component {
     constructor(props) {
@@ -39,6 +37,8 @@ class Upload extends Component {
     }
 
     addVideo(){
+        const urlParams = new URLSearchParams(window.location.search);
+        const chapter = urlParams.get('chapter');
       document.getElementById('progressbarUpload').style.display='block';
             this.setState({ percent: 0 });
             
@@ -71,7 +71,6 @@ class Upload extends Component {
               const that = this;
               axios.post(url, data, config)
                 .then(function(response) {
-                  console.log(response);
                   that.setState({
                     message:'Video has been uploaded '
                   })
@@ -90,6 +89,8 @@ class Upload extends Component {
         }
 
     render() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const course = urlParams.get('course');
              return (
             <Context.Consumer>
                 {ctx => {
@@ -105,6 +106,7 @@ class Upload extends Component {
                                     <AvatarAndEdit />
                                 </Navbar>
                                 <Link 
+
                                 to={'/addlecture/'+course} >
                                 <div id='iconBack'>
                                         <Icon icon='arrow-left' size={30} color="white" />

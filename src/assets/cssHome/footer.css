@@ -1,6 +1,10 @@
 #footercontiner{
 background-color: #F7F8FA;
 }
+
+#mediacrosol1{
+    margin-left: 10px;
+}
 #getFooter{
     align-items: center;
     background-color: #29303B;
@@ -20,14 +24,15 @@ background-color: #F7F8FA;
     height: 360px; 
 }
 #studentCrosol{
+    margin-top: 30px;
     text-align: center;
 }
-#studentCrosol h2{
+#studentCroso h2{
     margin-top: 20px;
     margin-left: 20px;
     font-size: 1.4rem;
 }
-#mediacrosol{
+#mediacroso{
     background-color: #FFF;
     border-radius: 3px;
     box-shadow: 0 1px 3px 0 rgba(20,23,28,0.15);
@@ -35,9 +40,10 @@ background-color: #F7F8FA;
    margin-left: 20px;
    margin-top: 10px;
     height: 100%;
-    min-height: 200px;
+    min-height: 260px;
     padding: 32px;
 }
+
 #trustedicon{
     margin-top: 10px;
     margin-bottom: 10px;
@@ -52,6 +58,7 @@ background-color: #F7F8FA;
 }
 #becomeContiner{
     display: flex;
+    background-color: white;
     flex-direction: column;
     align-items: center;
     justify-content: center;

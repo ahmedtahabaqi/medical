@@ -20,8 +20,9 @@ import Instructer from './component/contactAndDesribtion/instructer';
 import ContactUs from './component/contactAndDesribtion/contactUs';
 import axios from 'axios';
 import host from './component/Host';
+import'./assets/indexCss';
 import './App.css';
-import './assets/assets/indexCss';
+
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
@@ -42,7 +43,6 @@ class App extends Component {
       axios.get(host+ `api/user/checklogin`, 
       { headers: headers })
           .then(response =>  { 
-            console.log(response.data)
               this.setState({ 
                 auth: response.data[0].auth,
                 session: response.data[1].sesson,

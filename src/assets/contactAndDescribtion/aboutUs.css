@@ -1,0 +1,13 @@
+#aboutusContiner{
+    text-align: center;
+    margin:  120px;
+}
+#aboutusContiner h2{
+    color: #025cab;
+    font-weight: bold;
+}
+#aboutusContiner p{
+    
+    font-size: 1.3rem;
+    letter-spacing: normal;
+}
